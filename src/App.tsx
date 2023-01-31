@@ -28,6 +28,21 @@ function App() {
             </p>
           </div>
         </section>
+        <section className="flex flex-col justify-center pb-20 mb-20 border-b-4 border-double">
+          <h2 className="border-b-2 pb-1 border-dashed w-fit mb-5 text-lg font-bold">
+            ABOUT
+          </h2>
+          <p className="mb-1">
+            A Middle Full-Stack JavaScript Developer with 2.5 years of
+            experience working in startups, specializing in creating massive and
+            scalable web apps, mobile apps and server apps from scratch or with
+            an existing codebase.
+          </p>
+          <p className="mb-5">
+            Frontend Development is my destiny, and I'm seeking to develop in
+            this direction.
+          </p>
+        </section>
       </div>
     </div>
   );
