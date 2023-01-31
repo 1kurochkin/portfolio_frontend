@@ -43,6 +43,32 @@ function App() {
             this direction.
           </p>
         </section>
+        <section className="flex flex-col justify-center mb-20">
+          <h2 className="border-b-2 pb-1 border-dashed w-fit mb-5 text-lg font-bold">
+            SKILLS
+          </h2>
+          <p className="mb-2">
+            <span className="font-bold border-b">Programmer Languages:</span>
+            {" JavaScript, TypeScript, SQL, Solidity."}
+          </p>
+          <p className="mb-2">
+            <span className="font-bold border-b">Frontend:</span>
+            {
+              " React, React Native, Redux, RTK, GraphQL, HTML, CSS, SCCS, AntDesign, TailWind, Web3.js."
+            }
+          </p>
+          <p className="mb-2">
+            <span className="font-bold border-b">Backend:</span>
+            {" Node.js, NestJS, Express.js, TypeORM, GraphQL."}
+          </p>
+          <p className="mb-5">
+            <span className="font-bold border-b">Databases:</span>
+            {" PostgreSQL, MongoDB."}
+          </p>
+          <p className="mb-5">
+            I am always open to new knowledge and challenges
+          </p>
+        </section>
       </div>
     </div>
   );
