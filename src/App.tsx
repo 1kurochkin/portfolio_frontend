@@ -5,6 +5,32 @@ import H2 from "./components/h2";
 import JobCard from "./components/jobCard";
 
 function App() {
+  const jobCards = [
+    {
+      startDate: "Jul 2021",
+      endDate: "Apr 2022",
+      position: "Backend JavaScript Developer",
+      description:
+        "One of the European IT service providers with 25 employees helped 500+ companies from the whole world to open a legal entity in the Eurozone and take care of tasks of accounting, invoicing, documentation and hr management.",
+      domain: "enty.io",
+    },
+    {
+      startDate: "Jul 2021",
+      endDate: "Apr 2022",
+      position: "Backend JavaScript Developer",
+      description:
+        "One of the European IT service providers with 25 employees helped 500+ companies from the whole world to open a legal entity in the Eurozone and take care of tasks of accounting, invoicing, documentation and hr management.",
+      domain: "enty.io",
+    },
+    {
+      startDate: "Jul 2021",
+      endDate: "Apr 2022",
+      position: "Backend JavaScript Developer",
+      description:
+        "One of the European IT service providers with 25 employees helped 500+ companies from the whole world to open a legal entity in the Eurozone and take care of tasks of accounting, invoicing, documentation and hr management.",
+      domain: "enty.io",
+    },
+  ];
   return (
     <div className="App min-h-screen bg-gray-800 text-white flex justify-center flex-col">
       <Header />
@@ -56,6 +82,18 @@ function App() {
           <p className="mb-5">
             I am always open to new knowledge and challenges.
           </p>
+        </section>
+        <section className="flex flex-col justify-center py-20 border-b-4 border-double">
+          <H2 text={"WORK EXPIRIENCE"} />
+          {jobCards.map((jobCard) => (
+            <JobCard
+              startDate={jobCard.startDate}
+              endDate={jobCard.endDate}
+              position={jobCard.position}
+              description={jobCard.description}
+              domain={jobCard.domain}
+            />
+          ))}
         </section>
       </div>
     </div>
