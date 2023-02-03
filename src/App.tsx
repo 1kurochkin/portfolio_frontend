@@ -132,7 +132,7 @@ function App() {
               ))}
             </section>
           </div>
-
+          <Footer contactLinks={contactLinks} />
         </>
       )}
     </div>
