@@ -1,9 +1,9 @@
 import React, { ReactEventHandler } from "react";
 type JobCardPropsTypes = {
   domain: string;
-  startDate: string;
-  endDate: string;
-  position: string;
+  startDate?: string;
+  endDate?: string;
+  position?: string;
   description: string;
 };
 
@@ -17,13 +17,12 @@ function JobCard(props: JobCardPropsTypes) {
       {/* <span className="border-2 border-dashed w-3/6">{domain[0]}</span> */}
       <div className="">
         <div className="font-bold flex justify-between items-center">
-          <p >
+          <p>
             <span className="border-b-2 cursor-pointer">{domain}</span>
-            {` | ${position}`}
+            {position && ` | ${position}`}
           </p>
-          <p className="">{`${startDate} - ${endDate}`}</p>
+          {startDate && <p>{`${startDate} - ${endDate}`}</p>}
         </div>
-
         <p className="mt-2 pl-3">{description}</p>
       </div>
     </div>
