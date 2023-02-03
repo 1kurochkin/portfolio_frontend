@@ -6,7 +6,8 @@ type H2PropsTypes = {
 function H2(props: H2PropsTypes) {
   const {text} = props;
   return (
-    <h2 className="border-b-2 pb-1 border-dashed w-fit mb-5 text-lg font-bold">
+    <h2 className="text-3xl border-b-2 pb-2 border-green-500 w-fit mb-10 font-bold">
+      <span className="text-green-500">~/</span>
       {text}
     </h2>
   );
