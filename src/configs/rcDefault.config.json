@@ -1,0 +1,8 @@
+{
+  "welcome": "{\"title\":\"123\",\"subtitle\":\"how are u?\"}",
+  "about": "{\"summary\":\"\"}",
+  "skills": "{\"programmer_languages\":\"JS, TS\",\"frontend\":\"JS, TS\",\"backend\":\"JS, TS\",\"databases\":\"JS, TS\"}",
+  "work_expirience": "[{\"domain\":\"\",\"position\":\"\",\"startDate\":\"Apr 2021\",\"endDate\":\"Oct 2021\",\"description\":\"\"},{\"domain\":\"\",\"position\":\"\",\"startDate\":\"Apr 2021\",\"endDate\":\"Oct 2021\",\"description\":\"\"}]",
+  "projects": "[{\"domain\":\"\",\"description\":\"\"},{\"domain\":\"\",\"description\":\"\"}]",
+  "contacts": "{\"phone_number\":\"+1(916)891-8139\",\"email\":\"developer@ikurochkin.com\",\"linked_in\":\"https://linkedin\",\"github\":\"https://github\"}"
+}
