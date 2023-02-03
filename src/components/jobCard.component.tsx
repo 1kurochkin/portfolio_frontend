@@ -1,4 +1,5 @@
 import React, { ReactEventHandler } from "react";
+import Link from "./link.component";
 type JobCardPropsTypes = {
   domain: string;
   startDate?: string;
@@ -14,14 +15,13 @@ function JobCard(props: JobCardPropsTypes) {
   };
   return (
     <div className="flex mb-10">
-      {/* <span className="border-2 border-dashed w-3/6">{domain[0]}</span> */}
       <div className="">
         <div className="font-bold flex justify-between items-center">
-          <p>
-            <span className="border-b-2 cursor-pointer">{domain}</span>
+          <p className="text-green-500">
+            <Link text={domain} href={`https://${domain}`}/>
             {position && ` | ${position}`}
           </p>
-          {startDate && <p>{`${startDate} - ${endDate}`}</p>}
+          {startDate && <span className="text-green-500">{`${startDate} - ${endDate}`}</span>}
         </div>
         <p className="mt-2 pl-3">{description}</p>
       </div>
