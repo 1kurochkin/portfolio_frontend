@@ -1,20 +1,29 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useScrollDirection } from "../hooks/useScrollDirection.hook";
 
 function Header() {
+
+  const scrollDirection = useScrollDirection();
+  
+  const navLinks = [
+    { value: "about" },
+    { value: "skills" },
+    { value: "work_expirience" },
+    { value: "projects" },
+    { value: "contacts" },
+  ];
   return (
-    <header className="pl-2 pr-2 pt-5 flex flex-col fixed top-0 left-0 right-0">
-      <div className="flex self-end items-center">
-        <nav className="hover:underline">#about</nav>
-        <nav className="ml-10 hover:underline">#skills</nav>
-        <nav className="ml-10 hover:underline">#work_expirience</nav>
-        <nav className="ml-10 hover:underline">#projects</nav>
-        <button className="ml-10 mr-5 p-2 pl-5 pr-5 border-2 border-dashed hover:border-solid">
-          RESUME
-        </button>
-      </div>
-      <p className="mt-3 overflow-hidden max-w-full">
-        ========================================================================================================================================================================================================================================================================================================================================================================================================================================================================
-      </p>
+    <header className={`${ scrollDirection === "down" ? "-top-24" : "top-0"} transition-all duration-500 bg-inherit font-bold border-b-2 border-double px-2 py-5 flex items-center justify-end sticky top-0 left-0 right-0 text-lg`}>
+      {navLinks.map(({ value }, index) => (<>
+      {index !== 0 && <span className="mx-5">|</span>}
+        <nav  className="cursor-pointer border-b-2 border-green-500 hover:text-green-500">
+          <span className="text-green-500">{"> "}</span>
+          <a href={`/#${value}`}>{value}</a>
+        </nav>
+      </>))}
+      <button className="ml-10 mr-5 p-2 px-5 border-2 border-green-500 hover:border-solid hover:text-green-500">
+        resume
+      </button>
     </header>
   );
 }
