@@ -79,7 +79,7 @@ function App() {
   ];
 
   return (
-    <div className="App min-h-screen bg-gray-800 text-white flex justify-center flex-col text-xl">
+    <div className="App min-h-screen bg-gray-900 text-white flex justify-center flex-col text-xl">
       {loading ? (
         <>Loading...</>
       ) : (
@@ -94,22 +94,31 @@ function App() {
                 <p className="">{contentConfig?.welcome.subtitle}</p>
               </div>
             </section>
-            <section id="about" className="flex flex-col justify-center pb-20 border-b-2 border-dashed">
+            <section
+              id="about"
+              className="flex flex-col justify-center pb-20 border-b-2 border-dashed"
+            >
               <H2 text={"about"} />
-              <p className="mb-1">{contentConfig?.about.summary}</p>
+              <p className="mb-1 whitespace-pre-line">{contentConfig?.about.summary}</p>
             </section>
-            <section id="skills" className="flex flex-col justify-center py-20 border-b-2 border-dashed">
+            <section
+              id="skills"
+              className="flex flex-col justify-center py-20 border-b-2 border-dashed"
+            >
               <H2 text={"skills"} />
               {Object.entries(contentConfig?.skills || {}).map(
                 ([key, value]) => (
                   <p className="mb-5">
-                    <span className="font-bold text-green-500 pb-1">{`${key}:`}</span>
+                    <span className="font-bold text-green-500">- </span>
                     <span className="">{value}</span>
                   </p>
                 )
               )}
             </section>
-            <section id="work_expirience"  className="flex flex-col justify-center py-20 border-b-2 border-dashed">
+            <section
+              id="work_expirience"
+              className="flex flex-col justify-center py-20 border-b-2 border-dashed"
+            >
               <H2 text={"work_expirience"} />
               {contentConfig?.work_expirience.map((work: any) => (
                 <JobCard
@@ -121,7 +130,10 @@ function App() {
                 />
               ))}
             </section>
-            <section id="projects" className="flex flex-col justify-center py-20">
+            <section
+              id="projects"
+              className="flex flex-col justify-center py-20"
+            >
               <H2 text={"projects"} />
               {contentConfig?.projects.map((project: any) => (
                 <JobCard
