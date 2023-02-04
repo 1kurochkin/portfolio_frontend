@@ -18,12 +18,23 @@ function JobCard(props: JobCardPropsTypes) {
       <div className="">
         <div className="font-bold flex justify-between items-center">
           <p className="text-green-500">
-            <Link text={domain} href={`https://${domain}`}/>
+            <Link text={domain} href={`https://${domain}`} />
             {position && ` | ${position}`}
           </p>
-          {startDate && <span className="text-green-500">{`${startDate} - ${endDate}`}</span>}
+          {startDate && (
+            <span className="text-green-500">{`${startDate} - ${endDate}`}</span>
+          )}
         </div>
-        <p className="mt-2 pl-3">{description}</p>
+        <p className="mt-2 pl-3 whitespace-pre-line">
+          {description.split("- ").map((text) =>
+            text.length ? (
+              <>
+                <span className="text-green-500 font-bold">- </span>
+                {text}
+              </>
+            ) : null
+          )}
+        </p>
       </div>
     </div>
   );
