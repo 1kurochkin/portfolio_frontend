@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "./link.component";
 
 type FooterPropsTypes = {
@@ -11,9 +10,9 @@ function Footer({ contactLinks }: FooterPropsTypes) {
       {contactLinks.map(({ text, href }, index) => (
         <>
           {index !== 0 && <span>|</span>}
-          <span className="cursor-pointer border-b-2 border-green-500 hover:text-green-500">
-            <span className="text-green-500">{"> "}</span>
-            <Link href={href} text={text as string} />
+          <span className="cursor-pointer border-b-2 border-secondary hover:text-secondary">
+            <span className="text-secondary">{"> "}</span>
+            <Link href={href} value={text as string} />
           </span>
         </>
       ))}
