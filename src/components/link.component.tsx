@@ -1,19 +1,21 @@
-import React from "react";
+import { ReactElement } from "react";
+
 type LinkPropsTypes = {
   href: string;
-  text: string;
+  value: string | ReactElement;
+  className?: string;
 };
 
 function Link(props: LinkPropsTypes) {
-  const { text, href } = props;
+  const { value, href, className } = props;
   return (
     <a
       href={href}
       rel="noopener noreferrer"
       target="_blank"
-      className="cursor-pointer hover:text-green-500"
+      className={`cursor-pointer hover:text-secondary ${className}`}
     >
-      {text}
+      {value}
     </a>
   );
 }
