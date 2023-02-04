@@ -6,12 +6,13 @@ import {
 } from "firebase/remote-config";
 import { useEffect, useState } from "react";
 import "./App.css";
+import Footer from "./components/footer.component";
 import H2 from "./components/h2.component";
 import Header from "./components/header.component";
 import JobCard from "./components/jobCard.component";
 import firebaseConfig from "./configs/firebase.config.json";
 import rcDefault from "./configs/rcDefault.config.json";
-import Footer from "./components/footer.component";
+import Paragraph from "./components/paragraph.component";
 
 type FirebaseRemoteConfigType = {
   resume_link: string;
@@ -79,7 +80,7 @@ function App() {
   ];
 
   return (
-    <div className="App min-h-screen bg-gray-900 text-white flex justify-center flex-col text-xl">
+    <div className="App min-h-screen bg-background text-primary font-medium flex justify-center flex-col text-xl">
       {loading ? (
         <>Loading...</>
       ) : (
@@ -88,7 +89,7 @@ function App() {
           <div className="container w-9/12 self-center">
             <section className="flex items-center">
               <div className="self-center w-3/4">
-                <h1 className="text-3xl font-bold mb-2 text-green-500">
+                <h1 className="text-3xl font-bold mb-2 text-secondary">
                   {contentConfig?.welcome.title}
                 </h1>
                 <p className="">{contentConfig?.welcome.subtitle}</p>
@@ -99,19 +100,18 @@ function App() {
               className="flex flex-col justify-center pb-20 border-b-2 border-dashed"
             >
               <H2 text={"about"} />
-              <p className="mb-1 whitespace-pre-line">{contentConfig?.about.summary}</p>
-            </section>
-            <section
-              id="skills"
-              className="flex flex-col justify-center py-20 border-b-2 border-dashed"
-            >
-              <H2 text={"skills"} />
+              <Paragraph
+                value={contentConfig?.about.summary}
+                className={"mb-10 whitespace-pre-line"}
+              />
               {Object.entries(contentConfig?.skills || {}).map(
                 ([key, value]) => (
-                  <p className="mb-5">
-                    <span className="font-bold text-green-500">- </span>
-                    <span className="">{value}</span>
-                  </p>
+                  <Paragraph
+                    before={`${key}: [ `}
+                    after={" ]"}
+                    value={value}
+                    className={"mb-5"}
+                  />
                 )
               )}
             </section>
