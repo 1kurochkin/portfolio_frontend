@@ -6,9 +6,9 @@ type ParagraphPropsTypes = {
 };
 
 function Paragraph(props: ParagraphPropsTypes) {
-  const { before = "- ", after = "", value = "", className } = props;
+  const { before, after = "", value = "", className } = props;
   return (
-    <p className={`mb-5 ${className}`}>
+    <p className={`mb-5 ${className} inline-block`}>
       <span className="font-bold text-secondary">{before}</span>
       {value}
       {after && <span className="font-bold text-secondary">{after}</span>}
