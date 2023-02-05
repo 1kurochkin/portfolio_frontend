@@ -1,18 +1,19 @@
-import { ReactElement } from "react";
+import { HTMLAttributeAnchorTarget, ReactElement } from "react";
 
 type LinkPropsTypes = {
   href: string;
   value: string | ReactElement;
   className?: string;
+  target?: HTMLAttributeAnchorTarget;
 };
 
 function Link(props: LinkPropsTypes) {
-  const { value, href, className } = props;
+  const { value, target = "_blank", href, className } = props;
   return (
     <a
       href={href}
       rel="noopener noreferrer"
-      target="_blank"
+      target={target}
       className={`cursor-pointer hover:text-secondary ${className}`}
     >
       {value}
