@@ -80,14 +80,14 @@ function App() {
   ];
 
   return (
-    <div className="App min-h-screen bg-background text-primary font-medium flex justify-center flex-col text-xl">
+    <div className="App min-h-screen bg-background text-primary font-medium sm:text-lg  text-2xl flex justify-center flex-col">
       {loading ? (
         <>Loading...</>
       ) : (
         <>
           <Header />
-          <div className="container w-9/12 self-center">
-            <section className="flex items-center">
+          <div className="sm:w-10/12 w-9/12 self-center">
+            <section className="flex items-center -mt-20">
               <div className="self-center w-3/4">
                 <h1 className="text-3xl font-bold mb-2 text-secondary">
                   {contentConfig?.welcome.title}
