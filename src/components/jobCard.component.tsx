@@ -12,17 +12,23 @@ function JobCard(props: JobCardPropsTypes) {
   const { domain, startDate, endDate, position, description } = props;
   return (
     <div className="flex mb-10">
-      <div className="">
-        <div className="font-bold flex justify-between items-center">
-          <p className="text-secondary">
-            <Link className="hover:text-primary" value={domain} href={`https://${domain}`} />
-            {position && ` | ${position}`}
-          </p>
+      <div className="w-full">
+        <div className="font-bold flex basis-full justify-between items-center flex-wrap text-secondary">
+          <div className="flex flex-wrap">
+            <Link
+              className={`hover:text-primary xl:basis-full`}
+              value={domain}
+              href={`https://${domain}`}
+            />
+            <span className="mx-2 xl:hidden">{" | "}</span>
+            <p>{position && `${position}`}</p>
+          </div>
+
           {startDate && (
-            <span className="text-secondary">{`${startDate} - ${endDate}`}</span>
+            <span className="text-secondary xl:basis-8/12">{`${startDate} - ${endDate}`}</span>
           )}
         </div>
-        <p className="mt-2 pl-3 whitespace-pre-line">
+        <p className="mt-2 whitespace-pre-line">
           {description
             .split("\n")
             .map((text) =>
