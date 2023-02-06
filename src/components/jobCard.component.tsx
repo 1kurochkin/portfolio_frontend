@@ -34,7 +34,7 @@ const JobCard = forwardRef((props: JobCardPropsTypes, ref: React.LegacyRef<HTMLP
           {description
             .split("\n")
             .map((text) =>
-              text.length ? <Paragraph value={text} className={"mb-5"} /> : null
+              text.length ? <Paragraph before="- " value={text} className={"mb-5"} /> : null
             )}
         </p>
       </div>
