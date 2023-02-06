@@ -7,10 +7,10 @@ import {
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import "./App.css";
-import Footer from "./components/footer.component";
 import { MH2 } from "./components/h2.component";
 import Header from "./components/header.component";
 import { MJobCard } from "./components/jobCard.component";
+import Link from "./components/link.component";
 import { MParagraph } from "./components/paragraph.component";
 import firebaseConfig from "./configs/firebase.config.json";
 import rcDefault from "./configs/rcDefault.config.json";
@@ -26,7 +26,7 @@ type FirebaseRemoteConfigType = {
     backend: string;
     databases: string;
   };
-  work_expirience: Array<{
+  work_experience: Array<{
     domain: string;
     position: string;
     startDate: string;
@@ -35,6 +35,7 @@ type FirebaseRemoteConfigType = {
   }>;
   projects: Array<{ name: string; domain: string; description: string }>;
   contacts: {
+    subtitle: string;
     email: string;
     linkedin: string;
     github: string;
@@ -69,22 +70,26 @@ function App() {
           [key]: JSON.parse(remoteConfigValues[key].asString()),
         }));
       }
-      setLoading(false);
+      setTimeout(() => setLoading(false), 1000)
+    
     })();
   }, []);
 
   const contactLinks = [
     {
+      key: "email",
       href: `mailto:${contentConfig?.contacts.email}`,
-      text: contentConfig?.contacts.email,
+      value: contentConfig?.contacts.email,
     },
     {
+      key: "linkedin",
       href: `https://www.linkedin.com/in/${contentConfig?.contacts.github}`,
-      text: `linkedin.com/in/${contentConfig?.contacts.linkedin}`,
+      value: `linkedin.com/in/${contentConfig?.contacts.linkedin}`,
     },
     {
+      key: "github",
       href: `https://github.com/${contentConfig?.contacts.github}`,
-      text: `github.com/${contentConfig?.contacts.github}`,
+      value: `github.com/${contentConfig?.contacts.github}`,
     },
   ];
 
@@ -98,8 +103,8 @@ function App() {
   };
 
   const ParagraphAnimation = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delay: 0.3 } },
+    hidden: (custom: string = "-30%") => ({ opacity: 0, x: custom }),
+    visible: { opacity: 1, x: 0, transition: { delay: 0.5 } },
   };
 
   const splitWordToCharsCallback = (letter: string, custom?: any) => (
@@ -125,7 +130,7 @@ function App() {
         </motion.div>
       ) : (
         <>
-          <Header />
+          <Header resumeLink={contentConfig?.contacts.resume_link} />
           <div className="sm:w-10/12 w-9/12 self-center z-20 bg-inherit">
             <motion.section
               onViewportEnter={onViewportEnterHandler}
@@ -173,7 +178,7 @@ function App() {
                 text={splitWordToChars("about", splitWordToCharsCallback)}
               />
               <MParagraph
-              before="- "
+                before="- "
                 initial={!viewedSections.includes("about") ? "hidden" : false}
                 whileInView="visible"
                 variants={ParagraphAnimation}
@@ -186,6 +191,7 @@ function App() {
                     initial={
                       !viewedSections.includes("about") ? "hidden" : false
                     }
+                    custom={["-30%", "30%"][i % 2]}
                     whileInView="visible"
                     variants={ParagraphAnimation}
                     before={`${key}: [ `}
@@ -198,27 +204,28 @@ function App() {
             </motion.section>
             <motion.section
               onViewportEnter={onViewportEnterHandler}
-              id="work_expirience"
+              id="work_experience"
               className="flex flex-col justify-center py-20 border-b-2 border-dashed"
             >
               <MH2
                 initial={
-                  !viewedSections.includes("work_expirience") ? "hidden" : false
+                  !viewedSections.includes("work_experience") ? "hidden" : false
                 }
                 whileInView="visible"
                 variants={TitleWordAnimation}
                 text={splitWordToChars(
-                  "work_expirience",
+                  "work_experience",
                   splitWordToCharsCallback
                 )}
               />
-              {contentConfig?.work_expirience.map((work: any, i) => (
+              {contentConfig?.work_experience.map((work: any, i) => (
                 <MJobCard
                   initial={
-                    !viewedSections.includes("work_expirience")
+                    !viewedSections.includes("work_experience")
                       ? "hidden"
                       : false
                   }
+                  custom={["-30%", "30%"][i % 2]}
                   whileInView="visible"
                   variants={ParagraphAnimation}
                   startDate={work.startDate}
@@ -232,7 +239,7 @@ function App() {
             <motion.section
               onViewportEnter={onViewportEnterHandler}
               id="projects"
-              className="flex flex-col justify-center py-20"
+              className="flex flex-col justify-center py-20 border-b-2 border-dashed"
             >
               <MH2
                 initial={
@@ -243,11 +250,12 @@ function App() {
                 text={splitWordToChars("projects", splitWordToCharsCallback)}
               />
 
-              {contentConfig?.projects.map((project: any) => (
+              {contentConfig?.projects.map((project: any, i) => (
                 <MJobCard
                   initial={
                     !viewedSections.includes("projects") ? "hidden" : false
                   }
+                  custom={["-30%", "30%"][i % 2]}
                   whileInView="visible"
                   variants={ParagraphAnimation}
                   position={project.name}
@@ -256,8 +264,49 @@ function App() {
                 />
               ))}
             </motion.section>
+            <motion.section
+              id="contacts"
+              onViewportEnter={onViewportEnterHandler}
+              className="flex flex-col justify-center py-20"
+            >
+              <MH2
+                initial={"hidden"}
+                whileInView="visible"
+                variants={TitleWordAnimation}
+                text={splitWordToChars("contacts", splitWordToCharsCallback)}
+              />
+              <MParagraph
+                before="- "
+                initial={
+                  !viewedSections.includes("contacts") ? "hidden" : false
+                }
+                whileInView="visible"
+                variants={ParagraphAnimation}
+                value={contentConfig?.contacts.subtitle}
+                className={"mb-10 whitespace-pre-line"}
+              />
+              {contactLinks.map(({ key, value, href }, i) => (
+                <MParagraph
+                  initial={
+                    !viewedSections.includes("contacts") ? "hidden" : false
+                  }
+                  custom={["-30%", "30%"][i % 2]}
+                  whileInView="visible"
+                  variants={ParagraphAnimation}
+                  before={`${key}: `}
+                  value={<Link href={href} value={value} />}
+                  className={"mb-5"}
+                />
+              ))}
+              <Link
+                className={
+                  "p-2 px-5 text-center w-6/12 mt-10 border-2 border-secondary hover:border-solid hover:text-secondary"
+                }
+                href={contentConfig?.contacts.resume_link}
+                value={"resume"}
+              />
+            </motion.section>
           </div>
-          <Footer sectionId={'contacts'} contactLinks={contactLinks} />
         </>
       )}
     </div>
