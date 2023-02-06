@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { forwardRef } from "react";
+import { ReactElement, forwardRef } from "react";
 
 type ParagraphPropsTypes = {
   before?: string;
   after?: string;
-  value?: string;
+  value?: string | ReactElement;
   className?: string;
 };
 
