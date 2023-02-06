@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import { forwardRef } from "react";
+
 type ParagraphPropsTypes = {
   before?: string;
   after?: string;
@@ -5,15 +8,16 @@ type ParagraphPropsTypes = {
   className?: string;
 };
 
-function Paragraph(props: ParagraphPropsTypes) {
+const Paragraph = forwardRef((props: ParagraphPropsTypes, ref?: React.LegacyRef<HTMLParagraphElement>) => {
   const { before, after = "", value = "", className } = props;
   return (
-    <p className={`mb-5 ${className} inline-block`}>
+    <p ref={ref} className={`mb-5 ${className} inline-block`}>
       <span className="font-bold text-secondary">{before}</span>
       {value}
       {after && <span className="font-bold text-secondary">{after}</span>}
     </p>
   );
-}
+})
 
-export default Paragraph;
+const MParagraph = motion(Paragraph);
+export {Paragraph, MParagraph};
