@@ -3,7 +3,7 @@ import { ReactComponent as CloseSvg } from "../assets/close.asset.svg";
 import { ReactComponent as MenuSvg } from "../assets/menu.asset.svg";
 import { useScrollDirection } from "../hooks/useScrollDirection.hook";
 import Link from "./link.component";
-import Paragraph from "./paragraph.component";
+import {Paragraph} from "./paragraph.component";
 
 function Header() {
   const scrollDirection = useScrollDirection();
@@ -21,12 +21,13 @@ function Header() {
     { value: "about" },
     { value: "work_expirience" },
     { value: "projects" },
+    { value: "contacts" },
   ];
   return (
     <header
       className={`sticky ${
         scrollDirection === "down" ? "-top-24" : "top-0"
-      } transition-all duration-500 h-24 bg-inherit font-bold border-b-2 border-double px-7 py-5 left-0 right-0 flex justify-end`}
+      } transition-all duration-500 h-24 bg-inherit z-40 font-bold border-b-2 border-double px-7 py-5 left-0 right-0 flex justify-end`}
     >
       {mobileMenu && (
         <div
@@ -37,7 +38,7 @@ function Header() {
       {mobileMenu ? (
         <CloseSvg
           onClick={toggleMenuHandler}
-          className={`hidden fill-secondary ${
+          className={`hidden fill-secondary cursor-pointer ${
             mobileMenu && "md:block"
           } h-12 w-12 right-5 z-20 ${
             scrollDirection === "down" ? "-top-24" : "top-5"
@@ -46,7 +47,7 @@ function Header() {
       ) : (
         <MenuSvg
           onClick={toggleMenuHandler}
-          className={`hidden fill-secondary h-12 w-12 ${
+          className={`hidden fill-secondary h-12 w-12 cursor-pointer ${
             !mobileMenu && "md:block"
           } right-5 ${
             scrollDirection === "down" ? "-top-24" : "top-5"
