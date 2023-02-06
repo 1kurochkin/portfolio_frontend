@@ -3,9 +3,10 @@ import { ReactComponent as CloseSvg } from "../assets/close.asset.svg";
 import { ReactComponent as MenuSvg } from "../assets/menu.asset.svg";
 import { useScrollDirection } from "../hooks/useScrollDirection.hook";
 import Link from "./link.component";
-import {Paragraph} from "./paragraph.component";
+import { Paragraph } from "./paragraph.component";
 
-function Header() {
+function Header(props: { resumeLink?: string }) {
+  const { resumeLink } = props;
   const scrollDirection = useScrollDirection();
   const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -19,7 +20,7 @@ function Header() {
 
   const navLinks = [
     { value: "about" },
-    { value: "work_expirience" },
+    { value: "work_experience" },
     { value: "projects" },
     { value: "contacts" },
   ];
@@ -49,9 +50,7 @@ function Header() {
           onClick={toggleMenuHandler}
           className={`hidden fill-secondary h-12 w-12 cursor-pointer ${
             !mobileMenu && "md:block"
-          } right-5 ${
-            scrollDirection === "down" ? "-top-24" : "top-5"
-          }`}
+          } right-5 ${scrollDirection === "down" ? "-top-24" : "top-5"}`}
         />
       )}
       <ul
@@ -78,14 +77,11 @@ function Header() {
           </li>
         ))}
         <Link
-          href={
-            "https://docs.google.com/document/d/1CSy-hGkmtTZg8hhc9oVHxXYsKtCIjrbWzcdoaZHjD5Q/edit?usp=share_link"
+          className={
+            "p-2 md:py-3 md:px-14 px-5 border-2 border-secondary hover:border-solid hover:text-secondary"
           }
-          value={
-            <button className="p-2 md:py-3 md:px-14 px-5 border-2 border-secondary hover:border-solid hover:text-secondary">
-              resume
-            </button>
-          }
+          href={resumeLink}
+          value={"resume"}
         />
       </ul>
     </header>
