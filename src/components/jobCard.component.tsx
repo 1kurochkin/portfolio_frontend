@@ -1,5 +1,7 @@
+import { forwardRef } from "react";
 import Link from "./link.component";
-import Paragraph from "./paragraph.component";
+import {Paragraph} from "./paragraph.component";
+import { motion } from "framer-motion";
 type JobCardPropsTypes = {
   domain: string;
   startDate?: string;
@@ -8,10 +10,10 @@ type JobCardPropsTypes = {
   description: string;
 };
 
-function JobCard(props: JobCardPropsTypes) {
+const JobCard = forwardRef((props: JobCardPropsTypes, ref: React.LegacyRef<HTMLParagraphElement>) => {
   const { domain, startDate, endDate, position, description } = props;
   return (
-    <div className="flex mb-10">
+    <div ref={ref} className="flex mb-10">
       <div className="w-full">
         <div className="font-bold flex basis-full justify-between items-center flex-wrap text-secondary">
           <div className="flex flex-wrap">
@@ -38,6 +40,8 @@ function JobCard(props: JobCardPropsTypes) {
       </div>
     </div>
   );
-}
+})
 
-export default JobCard;
+const MJobCard = motion(JobCard);
+
+export {JobCard, MJobCard};
