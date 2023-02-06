@@ -109,7 +109,7 @@ function App() {
   );
 
   return (
-    <div className="App min-h-screen bg-background text-primary font-medium sm:text-lg  text-2xl flex justify-center flex-col">
+    <div className="App min-h-screen bg-background text-primary font-normal sm:text-lg text-2xl flex justify-center flex-col">
       {loading ? (
         <motion.div
           initial="hidden"
@@ -173,6 +173,7 @@ function App() {
                 text={splitWordToChars("about", splitWordToCharsCallback)}
               />
               <MParagraph
+              before="- "
                 initial={!viewedSections.includes("about") ? "hidden" : false}
                 whileInView="visible"
                 variants={ParagraphAnimation}
