@@ -4,15 +4,17 @@ import {
   getAll,
   getRemoteConfig,
 } from "firebase/remote-config";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Footer from "./components/footer.component";
-import H2 from "./components/h2.component";
+import { MH2 } from "./components/h2.component";
 import Header from "./components/header.component";
-import JobCard from "./components/jobCard.component";
+import { MJobCard } from "./components/jobCard.component";
+import { MParagraph } from "./components/paragraph.component";
 import firebaseConfig from "./configs/firebase.config.json";
 import rcDefault from "./configs/rcDefault.config.json";
-import Paragraph from "./components/paragraph.component";
+import { splitWordToChars } from "./utils/splitWordToChars.util";
 
 type FirebaseRemoteConfigType = {
   resume_link: string;
@@ -42,8 +44,15 @@ type FirebaseRemoteConfigType = {
 
 function App() {
   const [loading, setLoading] = useState<Boolean>(true);
+  const [viewedSections, setViewedSections] = useState([""]);
   const [contentConfig, setContentConfig] =
     useState<FirebaseRemoteConfigType>();
+
+  const onViewportEnterHandler = (entry: IntersectionObserverEntry | null) => {
+    if (entry && !viewedSections.includes(entry.target.id || " ")) {
+      setViewedSections((prev) => prev.concat(entry.target.id));
+    }
+  };
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
@@ -79,34 +88,105 @@ function App() {
     },
   ];
 
+  const TitleWordAnimation = {
+    hidden: { opacity: 1 },
+    visible: { opacity: 1, transition: { delay: 0.5, staggerChildren: 0.08 } },
+  };
+  const TitleLettersAnimation = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
+  const ParagraphAnimation = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { delay: 0.3 } },
+  };
+
+  const splitWordToCharsCallback = (letter: string, custom?: any) => (
+    <motion.span custom={custom} variants={TitleLettersAnimation}>
+      {letter}
+    </motion.span>
+  );
+
   return (
     <div className="App min-h-screen bg-background text-primary font-medium sm:text-lg  text-2xl flex justify-center flex-col">
       {loading ? (
-        <>Loading...</>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={TitleWordAnimation}
+          className={
+            "overflow-hidden flex justify-center items-center text-4xl text-secondary absolute top-0 left-0 z-20 w-screen h-full opacity-50"
+          }
+        >
+          {splitWordToChars("0 1 0 1 0 1 1 1 0", (letter: string) =>
+            splitWordToCharsCallback(letter, Infinity)
+          )}
+        </motion.div>
       ) : (
         <>
           <Header />
-          <div className="sm:w-10/12 w-9/12 self-center">
-            <section className="flex items-center -mt-20">
+          <div className="sm:w-10/12 w-9/12 self-center z-20 bg-inherit">
+            <motion.section
+              onViewportEnter={onViewportEnterHandler}
+              id="greeting"
+              className="flex items-center -mt-20"
+            >
               <div className="self-center w-3/4">
-                <h1 className="text-3xl font-bold mb-2 text-secondary">
-                  {contentConfig?.welcome.title}
-                </h1>
-                <p className="">{contentConfig?.welcome.subtitle}</p>
+                <motion.h1
+                  initial={
+                    !viewedSections.includes("greeting") ? "hidden" : false
+                  }
+                  whileInView="visible"
+                  variants={
+                    !viewedSections.includes("greeting")
+                      ? TitleWordAnimation
+                      : undefined
+                  }
+                  className="text-3xl font-bold mb-2 text-secondary"
+                >
+                  {splitWordToChars(
+                    contentConfig?.welcome.title,
+                    splitWordToCharsCallback
+                  )}
+                </motion.h1>
+                <MParagraph
+                  initial={
+                    !viewedSections.includes("greeting") ? "hidden" : false
+                  }
+                  whileInView="visible"
+                  variants={ParagraphAnimation}
+                  value={contentConfig?.welcome.subtitle}
+                  className={"mb-10 whitespace-pre-line"}
+                />
               </div>
-            </section>
-            <section
+            </motion.section>
+            <motion.section
+              onViewportEnter={onViewportEnterHandler}
               id="about"
               className="flex flex-col justify-center pb-20 border-b-2 border-dashed"
             >
-              <H2 text={"about"} />
-              <Paragraph
+              <MH2
+                initial={!viewedSections.includes("about") ? "hidden" : false}
+                whileInView="visible"
+                variants={TitleWordAnimation}
+                text={splitWordToChars("about", splitWordToCharsCallback)}
+              />
+              <MParagraph
+                initial={!viewedSections.includes("about") ? "hidden" : false}
+                whileInView="visible"
+                variants={ParagraphAnimation}
                 value={contentConfig?.about.summary}
                 className={"mb-10 whitespace-pre-line"}
               />
               {Object.entries(contentConfig?.skills || {}).map(
-                ([key, value]) => (
-                  <Paragraph
+                ([key, value], i) => (
+                  <MParagraph
+                    initial={
+                      !viewedSections.includes("about") ? "hidden" : false
+                    }
+                    whileInView="visible"
+                    variants={ParagraphAnimation}
                     before={`${key}: [ `}
                     after={" ]"}
                     value={value}
@@ -114,14 +194,32 @@ function App() {
                   />
                 )
               )}
-            </section>
-            <section
+            </motion.section>
+            <motion.section
+              onViewportEnter={onViewportEnterHandler}
               id="work_expirience"
               className="flex flex-col justify-center py-20 border-b-2 border-dashed"
             >
-              <H2 text={"work_expirience"} />
-              {contentConfig?.work_expirience.map((work: any) => (
-                <JobCard
+              <MH2
+                initial={
+                  !viewedSections.includes("work_expirience") ? "hidden" : false
+                }
+                whileInView="visible"
+                variants={TitleWordAnimation}
+                text={splitWordToChars(
+                  "work_expirience",
+                  splitWordToCharsCallback
+                )}
+              />
+              {contentConfig?.work_expirience.map((work: any, i) => (
+                <MJobCard
+                  initial={
+                    !viewedSections.includes("work_expirience")
+                      ? "hidden"
+                      : false
+                  }
+                  whileInView="visible"
+                  variants={ParagraphAnimation}
                   startDate={work.startDate}
                   endDate={work.endDate}
                   position={work.position}
@@ -129,22 +227,36 @@ function App() {
                   domain={work.domain}
                 />
               ))}
-            </section>
-            <section
+            </motion.section>
+            <motion.section
+              onViewportEnter={onViewportEnterHandler}
               id="projects"
               className="flex flex-col justify-center py-20"
             >
-              <H2 text={"projects"} />
+              <MH2
+                initial={
+                  !viewedSections.includes("projects") ? "hidden" : false
+                }
+                whileInView="visible"
+                variants={TitleWordAnimation}
+                text={splitWordToChars("projects", splitWordToCharsCallback)}
+              />
+
               {contentConfig?.projects.map((project: any) => (
-                <JobCard
+                <MJobCard
+                  initial={
+                    !viewedSections.includes("projects") ? "hidden" : false
+                  }
+                  whileInView="visible"
+                  variants={ParagraphAnimation}
                   position={project.name}
                   description={project.description}
                   domain={project.domain}
                 />
               ))}
-            </section>
+            </motion.section>
           </div>
-          <Footer contactLinks={contactLinks} />
+          <Footer sectionId={'contacts'} contactLinks={contactLinks} />
         </>
       )}
     </div>
