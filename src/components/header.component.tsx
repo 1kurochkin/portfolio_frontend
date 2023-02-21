@@ -63,7 +63,7 @@ function Header(props: { resumeLink?: string }) {
             onClick={onClickLiHandler}
             className="flex md:basis-full md:first:mt-20 md:mb-10 mr-10"
           >
-<!--             <Link
+            <Link
               target={"_self"}
               href={`/#${value}`}
               value={
@@ -73,16 +73,16 @@ function Header(props: { resumeLink?: string }) {
                   value={value}
                 />
               }
-            /> -->
+            />
           </li>
         ))}
-        <Link
+        {/* <Link
           className={
             "p-2 md:py-3 md:px-14 px-5 border-2 border-secondary hover:border-solid hover:text-secondary"
           }
           href={resumeLink}
           value={"resume"}
-        />
+        /> */}
       </ul>
     </header>
   );

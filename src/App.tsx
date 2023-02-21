@@ -298,11 +298,11 @@ function App() {
                   className={"mb-5"}
                 />
               ))}
-<!--               <Link
+              {/* <Link
                 className="p-2 px-5 text-center w-6/12 mt-10 border-2 border-secondary hover:border-solid hover:text-secondary"
                 href={contentConfig?.contacts.resume_link}
                 value={"resume"}
-              /> -->
+              /> */}
             </motion.section>
           </div>
         </>
