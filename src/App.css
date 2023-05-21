@@ -10,6 +10,10 @@
   scroll-behavior: smooth;
 }
 
+html {
+  overflow-x: hidden;
+} 
+
 section {
   min-height: 100vh;
 }
